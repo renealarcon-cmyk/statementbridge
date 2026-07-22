@@ -97,7 +97,7 @@ jobs:
         if: hashFiles('apps/web/package.json') != ''
         with:
           package_json_file: apps/web/package.json
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: hashFiles('apps/web/package.json') != ''
         with:
           node-version: 22
