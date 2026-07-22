@@ -1,0 +1,4 @@
+Date,Description,Amount
+2026-09-01,=HYPERLINK("http://evil.example"),-1.00
+2026-09-02,+cmd|' /C calc'!A0,2.00
+2026-09-03,@SUM(1+9),3.00

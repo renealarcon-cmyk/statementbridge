@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "comma_dot_signed_iso.csv",
+    "format": "csv",
+    "adapter_id": "generic-signed-amount",
+    "imported_at": null,
+    "content_hash": "b6f4b78db5e6d995289e5ca32f230ac1d3a4a6617579c8c7ad02a5cddd320091"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": "USD"
+  },
+  "period": {
+    "from": "2026-01-02",
+    "to": "2026-01-15"
+  },
+  "transactions": [
+    {
+      "id": "sb1-dc5c32510a41d116",
+      "date": "2026-01-02",
+      "posted_at": null,
+      "description": "Opening deposit",
+      "reference": "TRX-1001",
+      "debit": null,
+      "credit": "1500.00",
+      "amount": "1500.00",
+      "balance": "1500.00",
+      "currency": "USD",
+      "original_row": 2,
+      "fingerprint": "a08297610c78aca20c89b051e461a19ca795ac65ef60f2a96007a19112b7a959",
+      "warnings": []
+    },
+    {
+      "id": "sb1-efdc8924e1684f20",
+      "date": "2026-01-05",
+      "posted_at": null,
+      "description": "Office supplies — Acme Tools",
+      "reference": "TRX-1002",
+      "debit": "249.99",
+      "credit": null,
+      "amount": "-249.99",
+      "balance": "1250.01",
+      "currency": "USD",
+      "original_row": 3,
+      "fingerprint": "e5bb0c0c844e4d88c3b71ebf8737e298b51ebe93029d8c0f300568adf528e5f8",
+      "warnings": []
+    },
+    {
+      "id": "sb1-79cb4deb2933a359",
+      "date": "2026-01-09",
+      "posted_at": null,
+      "description": "Consulting invoice, project Delta",
+      "reference": "TRX-1003",
+      "debit": null,
+      "credit": "875.50",
+      "amount": "875.50",
+      "balance": "2125.51",
+      "currency": "USD",
+      "original_row": 4,
+      "fingerprint": "33884bdb38ae2feeb207e173badf213fa3c8eca110bb615ccf564dc0efe0d4a0",
+      "warnings": []
+    },
+    {
+      "id": "sb1-f4daceae45bdfa38",
+      "date": "2026-01-12",
+      "posted_at": null,
+      "description": "Software subscription",
+      "reference": "TRX-1004",
+      "debit": "49.00",
+      "credit": null,
+      "amount": "-49.00",
+      "balance": "2076.51",
+      "currency": "USD",
+      "original_row": 5,
+      "fingerprint": "663e6d3b8a4b2cd1cd6814f5800edb7b082cb5a9fab88781e8647a7dd9133fa7",
+      "warnings": []
+    },
+    {
+      "id": "sb1-9a1ac5fb6b4855c7",
+      "date": "2026-01-15",
+      "posted_at": null,
+      "description": "Utility payment",
+      "reference": "TRX-1005",
+      "debit": "120.75",
+      "credit": null,
+      "amount": "-120.75",
+      "balance": "1955.76",
+      "currency": "USD",
+      "original_row": 6,
+      "fingerprint": "a123161cb193d21c083c6099533280b27252a70bae4fa82c25afd1ffdf0426a2",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 5,
+    "total_debits": "419.74",
+    "total_credits": "2375.50",
+    "opening_balance": "0.00",
+    "closing_balance": "1955.76",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "balance_check": {
+      "status": "consistent",
+      "checked_pairs": 4,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}

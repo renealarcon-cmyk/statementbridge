@@ -1,0 +1,85 @@
+# Draft releases only — a maintainer reviews and publishes manually.
+# No crates.io/npm publishing from CI in 0.1.x.
+#
+# Pushing a tag matching v* builds the CLI on Linux/macOS/Windows, packages
+# each binary with LICENSE, NOTICE and README.md, and creates a DRAFT GitHub
+# release with the archives attached and auto-generated notes.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Host builds only for now; more targets (e.g. x86_64-apple-darwin,
+          # aarch64-unknown-linux-gnu) can be added as cross-compiled entries.
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            archive: tar.gz
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            archive: tar.gz
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            archive: zip
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build release binary
+        run: cargo build --release -p statementbridge-cli
+      - name: Package
+        shell: bash
+        run: |
+          set -euo pipefail
+          NAME="statementbridge-${GITHUB_REF_NAME}-${{ matrix.target }}"
+          mkdir "$NAME"
+          BIN="target/release/statementbridge"
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            BIN="${BIN}.exe"
+          fi
+          cp "$BIN" "$NAME/"
+          cp LICENSE NOTICE README.md "$NAME/"
+          if [[ "${{ matrix.archive }}" == "zip" ]]; then
+            7z a "${NAME}.zip" "$NAME"
+            echo "ASSET=${NAME}.zip" >> "$GITHUB_ENV"
+          else
+            tar czf "${NAME}.tar.gz" "$NAME"
+            echo "ASSET=${NAME}.tar.gz" >> "$GITHUB_ENV"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: statementbridge-${{ matrix.target }}
+          path: ${{ env.ASSET }}
+          if-no-files-found: error
+
+  release:
+    name: Draft GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          # NEVER auto-publish: a maintainer inspects the draft (artifacts,
+          # notes, CHANGELOG match) and publishes it manually.
+          draft: true
+          generate_release_notes: true
+          files: dist/*

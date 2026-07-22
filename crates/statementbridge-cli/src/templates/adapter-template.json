@@ -1,0 +1,33 @@
+{
+  "id": "__ADAPTER_ID__",
+  "version": "0.1.0",
+  "display_name": "My Bank — checking account export",
+  "description": "Describe the export this adapter handles: which bank, which screen/menu produces it, CSV or XLSX, language.",
+  "supported_formats": ["csv"],
+  "locales": ["en"],
+  "expected_headers": ["date", "amount"],
+  "header_aliases": {
+    "date": ["Transaction Date"],
+    "description": ["Details"],
+    "amount": ["Amount (USD)"]
+  },
+  "rows_to_skip": 0,
+  "footer_patterns": ["^\\s*grand total\\b"],
+  "date_formats": ["%m/%d/%Y"],
+  "decimal_separator": ".",
+  "thousands_separator": ",",
+  "transaction_order": "auto",
+  "currency": null,
+  "amount_mode": "signed",
+  "date_column": null,
+  "debit_column": null,
+  "credit_column": null,
+  "signed_amount_column": null,
+  "balance_column": null,
+  "reference_column": null,
+  "description_column": null,
+  "currency_column": null,
+  "account_column": null,
+  "account_masking_rules": { "min_digits": 6, "keep_last": 4 },
+  "detection_priority": 60
+}

@@ -1,0 +1,68 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/statementbridge-core",
+    "crates/statementbridge-formats",
+    "crates/statementbridge-adapters",
+    "crates/statementbridge-cli",
+    "crates/statementbridge-wasm",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79"
+license = "Apache-2.0"
+authors = ["StatementBridge contributors"]
+homepage = "https://github.com/statementbridge/statementbridge"
+repository = "https://github.com/statementbridge/statementbridge"
+keywords = ["finance", "csv", "xlsx", "bank-statement", "normalization"]
+categories = ["parser-implementations", "command-line-utilities", "finance"]
+
+[workspace.dependencies]
+statementbridge-core = { path = "crates/statementbridge-core", version = "0.1.0" }
+statementbridge-formats = { path = "crates/statementbridge-formats", version = "0.1.0" }
+statementbridge-adapters = { path = "crates/statementbridge-adapters", version = "0.1.0" }
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rust_decimal = { version = "1.36", features = ["serde-with-str"] }
+chrono = { version = "0.4", default-features = false, features = ["std", "serde"] }
+thiserror = "2"
+sha2 = "0.10"
+regex = "1.10"
+unicode-normalization = "0.1"
+tracing = "0.1"
+csv = "1.3"
+encoding_rs = "0.8"
+calamine = { version = "0.36", features = ["dates"] }
+clap = { version = "4.5", features = ["derive"] }
+anyhow = "1"
+wasm-bindgen = "0.2.95"
+
+# dev
+proptest = "1"
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+jsonschema = { version = "0.26", default-features = false }
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "warn"
+dbg_macro = "warn"
+print_stdout = "allow"
+
+[profile.release]
+lto = "thin"
+strip = "symbols"
+
+# Small, size-optimized profile used for the WebAssembly package.
+[profile.wasm-release]
+inherits = "release"
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"

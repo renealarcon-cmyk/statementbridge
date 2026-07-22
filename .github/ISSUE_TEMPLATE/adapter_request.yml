@@ -1,0 +1,105 @@
+name: Adapter request
+description: Request support for a bank or payment-processor export format
+labels: ["adapter"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adapters are declarative JSON files — you can often contribute one
+        yourself with `statementbridge init-adapter <name>` (see
+        CONTRIBUTING.md). If you'd rather request it, fill in this form.
+
+        **Privacy rule: share the HEADER ROW ONLY — never data rows.** No
+        real transactions, account numbers, names, or amounts anywhere in
+        this issue.
+  - type: input
+    id: institution
+    attributes:
+      label: Institution / source system
+      description: >-
+        Which bank, payment processor, or software produces this export, and
+        which export option (e.g. "MyBank business banking → Export → CSV").
+      placeholder: "ExampleBank personal checking, CSV export"
+    validations:
+      required: true
+  - type: dropdown
+    id: format
+    attributes:
+      label: File format
+      options:
+        - CSV
+        - XLSX
+        - Other (describe below)
+    validations:
+      required: true
+  - type: textarea
+    id: header-row
+    attributes:
+      label: Header row (ONLY the header row — no data rows)
+      description: >-
+        Paste exactly the column header line(s) of the export, plus any
+        informational lines that appear above the header (with any personal
+        details replaced by placeholders). Do NOT paste transaction rows.
+      render: text
+      placeholder: "Fecha;Concepto;Fecha valor;Importe;Divisa;Saldo"
+    validations:
+      required: true
+  - type: input
+    id: locale
+    attributes:
+      label: Locale / language of the export
+      placeholder: "es-MX"
+    validations:
+      required: true
+  - type: input
+    id: date-format
+    attributes:
+      label: Date format
+      description: How dates look in the file (use placeholder digits, not real dates from your statement).
+      placeholder: "DD/MM/YYYY, e.g. 05/02/2026"
+    validations:
+      required: true
+  - type: input
+    id: separators
+    attributes:
+      label: Number separators
+      description: Decimal separator and thousands separator, if any.
+      placeholder: "decimal ',' — thousands '.' (1.234,56)"
+    validations:
+      required: true
+  - type: dropdown
+    id: amount-mode
+    attributes:
+      label: Amount columns
+      options:
+        - Separate debit and credit columns
+        - Single amount column with positive and negative values
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else about the layout
+      description: >-
+        Transaction order (newest first / oldest first), balance column,
+        currency column or fixed currency, footer/total rows, preamble rows
+        before the header, encoding oddities, multiple sheets (XLSX), etc.
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Willingness to contribute
+      description: No obligation — this just helps route the work.
+      options:
+        - label: I'm willing to write the adapter myself with guidance (init-adapter + docs/adapter-authoring.md).
+        - label: I can build a synthetic fixture file and test a proposed adapter against real exports locally.
+        - label: I can only provide the format details above.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: >-
+            This issue contains the header row and format details only — no
+            data rows, and no real account numbers, names, dates, or amounts.
+          required: true

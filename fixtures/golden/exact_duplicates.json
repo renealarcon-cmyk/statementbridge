@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "exact_duplicates.csv",
+    "format": "csv",
+    "adapter_id": "generic-signed-amount",
+    "imported_at": null,
+    "content_hash": "3ea0e3883b9b08b2c5388a4a3f98db92a003ac763a3fc40b2853e92a18a0b3b5"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-05-02",
+    "to": "2026-05-03"
+  },
+  "transactions": [
+    {
+      "id": "sb1-aee419b7b60bdf1a",
+      "date": "2026-05-02",
+      "posted_at": null,
+      "description": "Subscription renewal",
+      "reference": "SUB-77",
+      "debit": "19.99",
+      "credit": null,
+      "amount": "-19.99",
+      "balance": null,
+      "currency": null,
+      "original_row": 2,
+      "fingerprint": "a180fca2148cbbd19092ac34e601802ecd7025b57308e443addb54a56f2689c8",
+      "warnings": []
+    },
+    {
+      "id": "sb1-d92cbac2586d8657",
+      "date": "2026-05-02",
+      "posted_at": null,
+      "description": "Subscription renewal",
+      "reference": "SUB-77",
+      "debit": "19.99",
+      "credit": null,
+      "amount": "-19.99",
+      "balance": null,
+      "currency": null,
+      "original_row": 3,
+      "fingerprint": "a180fca2148cbbd19092ac34e601802ecd7025b57308e443addb54a56f2689c8",
+      "duplicate_of_row": 2,
+      "duplicate_kind": "exact",
+      "warnings": [
+        {
+          "code": "exact_duplicate",
+          "message": "exact duplicate of row 2",
+          "row": 3
+        }
+      ]
+    },
+    {
+      "id": "sb1-a607ac71412e5ece",
+      "date": "2026-05-03",
+      "posted_at": null,
+      "description": "Client payment",
+      "reference": "INV-201",
+      "debit": null,
+      "credit": "600.00",
+      "amount": "600.00",
+      "balance": null,
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "de64cd41b362f408695a91c3a379ac32957796d603fe6176f28409e7ae1c1352",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 3,
+    "total_debits": "39.98",
+    "total_credits": "600.00",
+    "opening_balance": null,
+    "closing_balance": null,
+    "exact_duplicates": 1,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid_with_warnings",
+    "errors": [],
+    "warnings": [],
+    "balance_check": {
+      "status": "not_available",
+      "checked_pairs": 0,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}

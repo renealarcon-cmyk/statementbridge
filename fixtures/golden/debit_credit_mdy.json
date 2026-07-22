@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "debit_credit_mdy.csv",
+    "format": "csv",
+    "adapter_id": "generic-debit-credit",
+    "imported_at": null,
+    "content_hash": "c82acf3852500b6c3e0e74833bd1a6d2a9297dfc47c1229bea5345d5c72c1301"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-01-15",
+    "to": "2026-01-28"
+  },
+  "transactions": [
+    {
+      "id": "sb1-cbade3733189765c",
+      "date": "2026-01-15",
+      "posted_at": null,
+      "description": "Opening deposit",
+      "reference": "DEP-01",
+      "debit": null,
+      "credit": "2000.00",
+      "amount": "2000.00",
+      "balance": "2000.00",
+      "currency": null,
+      "original_row": 2,
+      "fingerprint": "6bb9333fd896da460cfcce8432afb7a479ef166195dc8bde84ec2185263e6549",
+      "warnings": []
+    },
+    {
+      "id": "sb1-9d56880a0377d4c6",
+      "date": "2026-01-16",
+      "posted_at": null,
+      "description": "Vendor payment — Blue Widgets",
+      "reference": "CHK-1101",
+      "debit": "350.25",
+      "credit": null,
+      "amount": "-350.25",
+      "balance": "1649.75",
+      "currency": null,
+      "original_row": 3,
+      "fingerprint": "b91a90db4f9816bcad8d3a35fa90e4a715941700be397ef8af8e7fc6a848a6a3",
+      "warnings": []
+    },
+    {
+      "id": "sb1-930218ce09a64295",
+      "date": "2026-01-20",
+      "posted_at": null,
+      "description": "Customer payment",
+      "reference": "ACH-2201",
+      "debit": null,
+      "credit": "1200.00",
+      "amount": "1200.00",
+      "balance": "2849.75",
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "04c2dff51c2079c8b5ec6e90b7fd45ab85df3eda78b01b0c09943b8b8d887e16",
+      "warnings": []
+    },
+    {
+      "id": "sb1-dcde0076bcf1088a",
+      "date": "2026-01-28",
+      "posted_at": null,
+      "description": "Payroll run",
+      "reference": "PAY-3301",
+      "debit": "1800.00",
+      "credit": null,
+      "amount": "-1800.00",
+      "balance": "1049.75",
+      "currency": null,
+      "original_row": 5,
+      "fingerprint": "f1f99cea4ae8b696455524a216ffbbf119dd6c44f23eefdff216148d0c13cc19",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 4,
+    "total_debits": "2150.25",
+    "total_credits": "3200.00",
+    "opening_balance": "0.00",
+    "closing_balance": "1049.75",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "balance_check": {
+      "status": "consistent",
+      "checked_pairs": 3,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}

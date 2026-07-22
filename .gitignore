@@ -1,0 +1,29 @@
+# Rust
+/target
+crates/*/target
+
+# Node
+node_modules/
+apps/web/dist/
+apps/web/coverage/
+apps/web/playwright-report/
+apps/web/test-results/
+
+# Generated WASM package (build with scripts/build-wasm.sh)
+apps/web/src/lib/wasm/pkg/
+
+# Generated large fixtures (create with scripts/generate_fixtures.py --large)
+fixtures/generated/
+
+# Benchmarks scratch output
+bench-out/
+
+# Editors / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Never commit real statements. Fixtures must be synthetic.
+*.private.*
+private/

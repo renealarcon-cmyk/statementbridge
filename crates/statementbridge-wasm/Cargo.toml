@@ -1,0 +1,29 @@
+[package]
+name = "statementbridge-wasm"
+description = "WebAssembly bindings for the StatementBridge engine (browser-local statement normalization)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+statementbridge-core = { workspace = true }
+statementbridge-formats = { workspace = true }
+statementbridge-adapters = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+wasm-bindgen = { workspace = true }
+console_error_panic_hook = "0.1"
+
+# The wasm-bindgen macro expands to `unsafe extern` blocks; allow it here only.
+[lints.rust]
+unsafe_code = "allow"
+
+[lints.clippy]
+unwrap_used = "warn"
+dbg_macro = "warn"

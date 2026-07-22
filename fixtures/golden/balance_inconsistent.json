@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "balance_inconsistent.csv",
+    "format": "csv",
+    "adapter_id": "generic-signed-amount",
+    "imported_at": null,
+    "content_hash": "ae96841dbfc226ee0c4dbca524d5d1feb23f9c85e8c3aa792d481cbbb19bcaa6"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-06-01",
+    "to": "2026-06-03"
+  },
+  "transactions": [
+    {
+      "id": "sb1-a825128dc9cbedd4",
+      "date": "2026-06-01",
+      "posted_at": null,
+      "description": "Opening deposit",
+      "reference": null,
+      "debit": null,
+      "credit": "1000.00",
+      "amount": "1000.00",
+      "balance": "1000.00",
+      "currency": null,
+      "original_row": 2,
+      "fingerprint": "13218ad3bcf19fb93c29fc19fef1a856cdbe8c7738d565d6913894d4c6db39b4",
+      "warnings": []
+    },
+    {
+      "id": "sb1-265ee5f4cb00e6ad",
+      "date": "2026-06-02",
+      "posted_at": null,
+      "description": "Vendor payment",
+      "reference": null,
+      "debit": "200.00",
+      "credit": null,
+      "amount": "-200.00",
+      "balance": "850.00",
+      "currency": null,
+      "original_row": 3,
+      "fingerprint": "8d8a905b05bfe4437e945b361fc77ed4140b88e84e3d4407d69a218badb7c972",
+      "warnings": []
+    },
+    {
+      "id": "sb1-210a2bfcb462c7e5",
+      "date": "2026-06-03",
+      "posted_at": null,
+      "description": "Client payment",
+      "reference": null,
+      "debit": null,
+      "credit": "300.00",
+      "amount": "300.00",
+      "balance": "1150.00",
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "d017b150baaf2890ccc7a176ab04fc005e910a43937312199ff0f37c28aca29f",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 3,
+    "total_debits": "200.00",
+    "total_credits": "1300.00",
+    "opening_balance": "0.00",
+    "closing_balance": "1150.00",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "invalid",
+    "errors": [
+      {
+        "code": "balance_mismatch",
+        "message": "balance chain breaks at row 3: expected 800.00 but file says 850.00",
+        "row": 3
+      }
+    ],
+    "warnings": [],
+    "balance_check": {
+      "status": "inconsistent",
+      "checked_pairs": 2,
+      "mismatches": 1,
+      "first_mismatch_row": 3,
+      "expected": "800.00",
+      "actual": "850.00"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest an improvement or new capability
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, a quick look at `docs/roadmap.md` may save you time —
+        some features (PDF import, n8n integration, payment processors) are
+        already planned for later versions.
+
+        If your request is "support my bank's export format", please use the
+        **Adapter request** template instead.
+
+        As everywhere in this project: if you paste any sample data below, it
+        must be synthetic — never real statements or account numbers.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem are you trying to solve? What is painful or impossible today?
+      placeholder: >-
+        When I convert statements for several clients in a batch, I have to
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like StatementBridge to do? CLI flags, library API, or web-app behavior sketches are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches or workarounds you've tried or considered, and why they fall short.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else — links, synthetic examples, how often you'd use this.

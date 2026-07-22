@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "descending.csv",
+    "format": "csv",
+    "adapter_id": "generic-signed-amount",
+    "imported_at": null,
+    "content_hash": "6df536cb613aa00aeb4a965c8e116aaeece5410ee44fcacd20bfd52fe903bc3d"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-04-01",
+    "to": "2026-04-04"
+  },
+  "transactions": [
+    {
+      "id": "sb1-d9f60dfb3b4d0560",
+      "date": "2026-04-01",
+      "posted_at": null,
+      "description": "Opening deposit",
+      "reference": null,
+      "debit": null,
+      "credit": "900.00",
+      "amount": "900.00",
+      "balance": "900.00",
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "eeea7eba0e9fe1d384d715a08e7e036b43c55b1378a38893598631859d45d678",
+      "warnings": []
+    },
+    {
+      "id": "sb1-77bbbe9aa95049ed",
+      "date": "2026-04-03",
+      "posted_at": null,
+      "description": "Hardware purchase",
+      "reference": null,
+      "debit": "129.99",
+      "credit": null,
+      "amount": "-129.99",
+      "balance": "770.01",
+      "currency": null,
+      "original_row": 3,
+      "fingerprint": "4c9e5cbb8acee3ba21e62a49e99cb1ae3a44a5a778502d731a6877eef64a0a70",
+      "warnings": []
+    },
+    {
+      "id": "sb1-dec2dfd01a6d1517",
+      "date": "2026-04-04",
+      "posted_at": null,
+      "description": "Client payment",
+      "reference": null,
+      "debit": null,
+      "credit": "450.00",
+      "amount": "450.00",
+      "balance": "1220.01",
+      "currency": null,
+      "original_row": 2,
+      "fingerprint": "ff9ef661ec07e6d7e0eaaffa55076df0d6c53a2e82468f4215ebba0827c067cf",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 3,
+    "total_debits": "129.99",
+    "total_credits": "1350.00",
+    "opening_balance": "0.00",
+    "closing_balance": "1220.01",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "balance_check": {
+      "status": "consistent",
+      "checked_pairs": 2,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}
