@@ -1,0 +1,92 @@
+name: Bug report
+description: Report a defect in StatementBridge (CLI, library, or web app)
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        **Before you write anything below: never post real bank statements,
+        account numbers, or customer data.** Reproduce the problem with a
+        *synthetic* file — same structure (delimiter, date format, column
+        layout), invented names and amounts. Reports containing real
+        financial data will be closed and asked to resubmit scrubbed.
+
+        Tip: `statementbridge inspect <file>` shows what the engine detected
+        and is very useful context for a report.
+  - type: input
+    id: version
+    attributes:
+      label: StatementBridge version
+      description: Output of `statementbridge --version` (or the commit hash you built from).
+      placeholder: statementbridge 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and environment
+      description: OS + version, and whether this is the CLI, the library, or the web app (with browser).
+      placeholder: "Ubuntu 24.04, CLI"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command run
+      description: The exact command including all flags (or the steps in the web app).
+      render: shell
+      placeholder: statementbridge convert statement.csv --locale es --output out.json
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened, including the exit code if known.
+    validations:
+      required: true
+  - type: textarea
+    id: repro-file
+    attributes:
+      label: Synthetic reproduction file
+      description: >-
+        Paste a SYNTHETIC file that reproduces the issue — never a real
+        statement. Keep the structure that triggers the bug (delimiter,
+        encoding quirks, date format, column layout) but use invented names,
+        account numbers, and amounts. A minimal file (a header plus a few
+        rows) is ideal. For XLSX, describe the sheet layout or attach a
+        synthetic file to the issue after creating it.
+      render: text
+      placeholder: |
+        Date;Description;Amount;Balance
+        01/02/2026;ACME SUPPLIES INVOICE 001;-1.234,56;8.765,44
+        02/02/2026;CLIENT PAYMENT DEMO;500,00;9.265,44
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      description: >-
+        Relevant CLI output or browser console output. Double-check it
+        contains no real financial data before pasting.
+      render: shell
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: >-
+            Everything in this report — file contents, logs, screenshots — is
+            fully synthetic. It contains no real bank statements, account
+            numbers, or customer data.
+          required: true

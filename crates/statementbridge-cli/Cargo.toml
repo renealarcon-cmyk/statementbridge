@@ -1,0 +1,39 @@
+[package]
+name = "statementbridge-cli"
+description = "StatementBridge command-line tool: inspect, convert and validate bank statement exports locally."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[[bin]]
+name = "statementbridge"
+path = "src/main.rs"
+
+[lib]
+name = "statementbridge_cli"
+path = "src/lib.rs"
+
+[dependencies]
+statementbridge-core = { workspace = true }
+statementbridge-formats = { workspace = true }
+statementbridge-adapters = { workspace = true }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true, features = ["clock"] }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+assert_cmd = { workspace = true }
+predicates = { workspace = true }
+tempfile = { workspace = true }
+jsonschema = { workspace = true }
+
+[lints]
+workspace = true

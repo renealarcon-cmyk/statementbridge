@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statementbridge.dev/schemas/statementbridge-adapter-v1.schema.json",
+  "title": "StatementBridge declarative adapter, version 1",
+  "description": "A declarative description of one bank/processor export format. Adapters contain configuration only — never code and never real bank data.",
+  "type": "object",
+  "required": ["id", "version", "display_name", "description", "supported_formats", "amount_mode"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "display_name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "supported_formats": {
+      "type": "array",
+      "items": { "enum": ["csv", "xlsx"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "locales": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+      "uniqueItems": true
+    },
+    "expected_headers": {
+      "description": "Header names (case/accent-insensitive) used to auto-detect this adapter.",
+      "type": "array",
+      "items": { "type": "string", "maxLength": 120 }
+    },
+    "header_aliases": {
+      "description": "Extra aliases per canonical field, merged over the built-in alias table.",
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(date|posted_at|description|reference|debit|credit|amount|balance|currency|account)$": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 120 }
+        }
+      }
+    },
+    "rows_to_skip": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "footer_patterns": {
+      "description": "Case-insensitive regular expressions matching footer rows (totals, disclaimers).",
+      "type": "array",
+      "items": { "type": "string", "maxLength": 200 }
+    },
+    "date_formats": {
+      "description": "chrono strftime patterns tried in order, e.g. %d/%m/%Y.",
+      "type": "array",
+      "items": { "type": "string", "maxLength": 64 }
+    },
+    "decimal_separator": { "anyOf": [{ "enum": [".", ","] }, { "type": "null" }] },
+    "thousands_separator": { "anyOf": [{ "enum": [".", ",", "'", " "] }, { "type": "null" }] },
+    "transaction_order": { "enum": ["auto", "ascending", "descending"] },
+    "currency": { "anyOf": [{ "type": "string", "pattern": "^[A-Z]{3}$" }, { "type": "null" }] },
+    "amount_mode": { "enum": ["auto", "debit_credit", "signed"] },
+    "date_column": { "$ref": "#/$defs/columnRef" },
+    "debit_column": { "$ref": "#/$defs/columnRef" },
+    "credit_column": { "$ref": "#/$defs/columnRef" },
+    "signed_amount_column": { "$ref": "#/$defs/columnRef" },
+    "balance_column": { "$ref": "#/$defs/columnRef" },
+    "reference_column": { "$ref": "#/$defs/columnRef" },
+    "description_column": { "$ref": "#/$defs/columnRef" },
+    "currency_column": { "$ref": "#/$defs/columnRef" },
+    "account_column": { "$ref": "#/$defs/columnRef" },
+    "account_masking_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min_digits": { "type": "integer", "minimum": 4, "maximum": 34 },
+        "keep_last": { "type": "integer", "minimum": 2, "maximum": 6 }
+      }
+    },
+    "detection_priority": { "type": "integer", "minimum": 0, "maximum": 100 }
+  },
+  "$defs": {
+    "columnRef": {
+      "description": "A column reference: a header name, or #N for the 1-based column index.",
+      "anyOf": [{ "type": "string", "maxLength": 120 }, { "type": "null" }]
+    }
+  }
+}

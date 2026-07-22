@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statementbridge.dev/schemas/statementbridge-v1.schema.json",
+  "title": "StatementBridge canonical statement, schema version 1.0",
+  "description": "Canonical, normalized representation of a bank/payment statement produced by StatementBridge. All monetary amounts are exact decimal strings; floats are never used for money.",
+  "type": "object",
+  "required": ["schema_version", "source", "account", "period", "transactions", "summary", "validation"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": {
+      "type": "object",
+      "required": ["file_name", "format", "adapter_id", "imported_at", "content_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "file_name": { "type": "string", "maxLength": 512 },
+        "format": { "enum": ["csv", "xlsx"] },
+        "adapter_id": { "$ref": "#/$defs/adapterId" },
+        "imported_at": {
+          "description": "ISO-8601 timestamp supplied by the caller. Null when the caller did not provide one (outputs stay deterministic).",
+          "anyOf": [{ "type": "string" }, { "type": "null" }]
+        },
+        "content_hash": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "account": {
+      "type": "object",
+      "required": ["institution", "account_name", "account_masked", "currency"],
+      "additionalProperties": false,
+      "properties": {
+        "institution": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "account_name": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "account_masked": {
+          "description": "Masked account identifier, e.g. ****4821. Full account numbers are never emitted.",
+          "anyOf": [{ "type": "string", "pattern": "^\\*{4}" }, { "type": "null" }]
+        },
+        "currency": { "anyOf": [{ "$ref": "#/$defs/currency" }, { "type": "null" }] }
+      }
+    },
+    "period": {
+      "description": "Date range covered by the statement, or null when no valid transactions exist.",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["from", "to"],
+          "additionalProperties": false,
+          "properties": {
+            "from": { "$ref": "#/$defs/date" },
+            "to": { "$ref": "#/$defs/date" }
+          }
+        }
+      ]
+    },
+    "transactions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/transaction" }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["transaction_count", "total_debits", "total_credits", "opening_balance", "closing_balance", "exact_duplicates", "possible_duplicates", "duplicates_removed"],
+      "additionalProperties": false,
+      "properties": {
+        "transaction_count": { "type": "integer", "minimum": 0 },
+        "total_debits": { "$ref": "#/$defs/decimal", "description": "Sum of debit magnitudes as a non-negative decimal string." },
+        "total_credits": { "$ref": "#/$defs/decimal" },
+        "opening_balance": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] },
+        "closing_balance": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] },
+        "exact_duplicates": { "type": "integer", "minimum": 0 },
+        "possible_duplicates": { "type": "integer", "minimum": 0 },
+        "duplicates_removed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "errors", "warnings", "balance_check"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["valid", "valid_with_warnings", "invalid"] },
+        "errors": { "type": "array", "items": { "$ref": "#/$defs/issue" } },
+        "warnings": { "type": "array", "items": { "$ref": "#/$defs/issue" } },
+        "balance_check": {
+          "type": "object",
+          "required": ["status", "checked_pairs", "mismatches", "first_mismatch_row", "expected", "actual"],
+          "additionalProperties": false,
+          "properties": {
+            "status": { "enum": ["consistent", "inconsistent", "not_available"] },
+            "checked_pairs": { "type": "integer", "minimum": 0 },
+            "mismatches": { "type": "integer", "minimum": 0 },
+            "first_mismatch_row": { "anyOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }] },
+            "expected": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] },
+            "actual": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "decimal": {
+      "type": "string",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "description": "Exact decimal number encoded as a string. Never a JSON float."
+    },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$", "description": "ISO 4217 alphabetic code when known." },
+    "adapterId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+    "issue": {
+      "type": "object",
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "code": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "message": { "type": "string" },
+        "row": { "type": "integer", "minimum": 1 },
+        "column": { "type": "string" }
+      }
+    },
+    "transaction": {
+      "type": "object",
+      "required": ["id", "date", "posted_at", "description", "reference", "debit", "credit", "amount", "balance", "currency", "original_row", "fingerprint", "warnings"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^sb1-[0-9a-f]{16}$" },
+        "date": { "$ref": "#/$defs/date" },
+        "posted_at": { "anyOf": [{ "$ref": "#/$defs/date" }, { "type": "null" }] },
+        "description": { "type": "string" },
+        "reference": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "debit": {
+          "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }],
+          "description": "Debit magnitude (non-negative decimal string) when the movement is a debit."
+        },
+        "credit": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] },
+        "amount": {
+          "$ref": "#/$defs/decimal",
+          "description": "Canonical signed amount: debits are negative, credits are positive."
+        },
+        "balance": { "anyOf": [{ "$ref": "#/$defs/decimal" }, { "type": "null" }] },
+        "currency": { "anyOf": [{ "$ref": "#/$defs/currency" }, { "type": "null" }] },
+        "original_row": { "type": "integer", "minimum": 1, "description": "1-based row in the source file (provenance)." },
+        "fingerprint": { "$ref": "#/$defs/sha256" },
+        "duplicate_of_row": { "type": "integer", "minimum": 1 },
+        "duplicate_kind": { "enum": ["exact", "possible", "repeated"] },
+        "warnings": { "type": "array", "items": { "$ref": "#/$defs/issue" } }
+      }
+    }
+  }
+}

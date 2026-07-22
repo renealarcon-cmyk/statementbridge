@@ -1,0 +1,4 @@
+Date,Description,Amount
+2026-07-01,Valid row,10.00
+2026-07-02,Broken row,12abc
+2026-07-03,Also valid,-5.25

@@ -1,0 +1,6 @@
+Date,Description,Reference,Amount,Balance,Currency
+2026-01-02,Opening deposit,TRX-1001,1500.00,1500.00,USD
+2026-01-05,Office supplies — Acme Tools,TRX-1002,-249.99,1250.01,USD
+2026-01-09,"Consulting invoice, project Delta",TRX-1003,875.50,2125.51,USD
+2026-01-12,Software subscription,TRX-1004,-49.00,2076.51,USD
+2026-01-15,Utility payment,TRX-1005,-120.75,1955.76,USD

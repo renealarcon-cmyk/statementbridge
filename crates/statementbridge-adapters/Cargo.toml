@@ -1,0 +1,24 @@
+[package]
+name = "statementbridge-adapters"
+description = "Declarative adapter system for StatementBridge: adapter spec, validation, detection and the built-in generic adapters."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+statementbridge-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+regex = { workspace = true }
+
+[dev-dependencies]
+jsonschema = { workspace = true }
+
+[lints]
+workspace = true

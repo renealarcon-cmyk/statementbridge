@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "semicolon_comma_es.csv",
+    "format": "csv",
+    "adapter_id": "generic-debit-credit",
+    "imported_at": null,
+    "content_hash": "fdcdf38ae0c5860e51fb5de7f2bde5b5f3f2e3f7e99aa91d79478e0845acd5c5"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-01-02",
+    "to": "2026-01-12"
+  },
+  "transactions": [
+    {
+      "id": "sb1-7b78fb4a32dfa75a",
+      "date": "2026-01-02",
+      "posted_at": null,
+      "description": "Depósito inicial",
+      "reference": null,
+      "debit": null,
+      "credit": "1500.00",
+      "amount": "1500.00",
+      "balance": "1500.00",
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "4a123e9e170bd955508d8866060121c594c55a1bed8fa1b234d469ef0ca86b6f",
+      "warnings": []
+    },
+    {
+      "id": "sb1-a00b964d08677817",
+      "date": "2026-01-05",
+      "posted_at": null,
+      "description": "Pago proveedor Ferretería Central",
+      "reference": null,
+      "debit": "249.99",
+      "credit": null,
+      "amount": "-249.99",
+      "balance": "1250.01",
+      "currency": null,
+      "original_row": 5,
+      "fingerprint": "0543eb8f79b310d2a9788db7e6378056c61d77418b333ca4bddccc994c2521f2",
+      "warnings": []
+    },
+    {
+      "id": "sb1-01e81719c948f95b",
+      "date": "2026-01-09",
+      "posted_at": null,
+      "description": "Factura consultoría proyecto Delta",
+      "reference": null,
+      "debit": null,
+      "credit": "875.50",
+      "amount": "875.50",
+      "balance": "2125.51",
+      "currency": null,
+      "original_row": 6,
+      "fingerprint": "8ecee41859e71fa2ddb8bb50a5c4813d423c42f9974a1843fda492d3e0b09d45",
+      "warnings": []
+    },
+    {
+      "id": "sb1-1fba73c7ed84350e",
+      "date": "2026-01-12",
+      "posted_at": null,
+      "description": "Suscripción software",
+      "reference": null,
+      "debit": "49.00",
+      "credit": null,
+      "amount": "-49.00",
+      "balance": "2076.51",
+      "currency": null,
+      "original_row": 7,
+      "fingerprint": "cb3bbee39f4541f38b8ea393122b90dbde337c59cc6ef8e57279378101ab545b",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 4,
+    "total_debits": "298.99",
+    "total_credits": "2375.50",
+    "opening_balance": "0.00",
+    "closing_balance": "2076.51",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid_with_warnings",
+    "errors": [],
+    "warnings": [
+      {
+        "code": "preamble_rows_skipped",
+        "message": "2 informational row(s) before the header were skipped"
+      },
+      {
+        "code": "footer_row_skipped",
+        "message": "footer/summary row skipped",
+        "row": 8
+      }
+    ],
+    "balance_check": {
+      "status": "consistent",
+      "checked_pairs": 3,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}

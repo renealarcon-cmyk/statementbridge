@@ -1,0 +1,8 @@
+Banco Sintético S.A.;;;;
+Movimientos de la cuenta ****4821;;;;
+Fecha;Concepto;Cargo;Abono;Saldo
+02/01/2026;Depósito inicial;;1.500,00;1.500,00
+05/01/2026;Pago proveedor Ferretería Central;249,99;;1.250,01
+09/01/2026;Factura consultoría proyecto Delta;;875,50;2.125,51
+12/01/2026;Suscripción software;49,00;;2.076,51
+TOTAL;;298,99;2.375,50;

@@ -1,0 +1,126 @@
+# StatementBridge continuous integration.
+#
+# Note: there is no separate "schema / adapters validation" job on purpose —
+# the JSON Schema is exercised against real outputs and the bundled adapters
+# are validated inside `cargo test --workspace` (jsonschema + adapter tests),
+# so a dedicated job would only duplicate work.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    name: Rust (fmt, clippy, tests)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: rustfmt
+        run: cargo fmt --all --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: tests
+        run: cargo test --workspace
+
+  # Cross-platform check of the CLI and the crates it depends on. The wasm
+  # crate is excluded here (it targets wasm32 and is covered by the web job).
+  cli-cross:
+    name: CLI (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: build and test CLI crates
+        run: cargo test -p statementbridge-cli -p statementbridge-core -p statementbridge-formats -p statementbridge-adapters
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+      - name: cargo audit
+        run: cargo audit
+        continue-on-error: false
+
+  # Web app: WASM build + lint + tests + production build.
+  #
+  # Guarded per-step with hashFiles('apps/web/package.json') so the job is a
+  # fast no-op while the web app does not exist yet. The guard must live at
+  # step level: hashFiles() is evaluated on the runner (after checkout) and is
+  # not available in a job-level `if`, where it would always be empty and the
+  # job would never run.
+  web:
+    name: Web (lint, tests, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Note when the web app is absent
+        if: hashFiles('apps/web/package.json') == ''
+        run: echo "apps/web/package.json not found — skipping web checks."
+      - uses: dtolnay/rust-toolchain@stable
+        if: hashFiles('apps/web/package.json') != ''
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        if: hashFiles('apps/web/package.json') != ''
+      - uses: taiki-e/install-action@v2
+        if: hashFiles('apps/web/package.json') != ''
+        with:
+          tool: wasm-pack
+      # No explicit version: the action reads "packageManager" from
+      # apps/web/package.json so CI and local pnpm always match.
+      - uses: pnpm/action-setup@v4
+        if: hashFiles('apps/web/package.json') != ''
+        with:
+          package_json_file: apps/web/package.json
+      - uses: actions/setup-node@v4
+        if: hashFiles('apps/web/package.json') != ''
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - name: Build WASM package
+        if: hashFiles('apps/web/package.json') != ''
+        run: bash scripts/build-wasm.sh
+      - name: Install web dependencies
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web install --frozen-lockfile
+      - name: Lint
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web lint
+      - name: Format check
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web format:check
+      - name: Typecheck
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web typecheck
+      - name: Tests
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web test -- --run
+      - name: Build
+        if: hashFiles('apps/web/package.json') != ''
+        run: pnpm --dir apps/web build

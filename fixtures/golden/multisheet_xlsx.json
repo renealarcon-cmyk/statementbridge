@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "file_name": "multisheet.xlsx",
+    "format": "xlsx",
+    "adapter_id": "generic-debit-credit",
+    "imported_at": null,
+    "content_hash": "058fec1d7c0344ad07b10c70147b17e298ca190c55ab6b339ae6628217de465a"
+  },
+  "account": {
+    "institution": null,
+    "account_name": null,
+    "account_masked": null,
+    "currency": null
+  },
+  "period": {
+    "from": "2026-02-02",
+    "to": "2026-02-05"
+  },
+  "transactions": [
+    {
+      "id": "sb1-da506230867e1dfe",
+      "date": "2026-02-02",
+      "posted_at": null,
+      "description": "Depósito inicial",
+      "reference": null,
+      "debit": null,
+      "credit": "1500",
+      "amount": "1500",
+      "balance": "1500",
+      "currency": null,
+      "original_row": 2,
+      "fingerprint": "a389310aca8d2809e3cdf198ec20c0b58a0a9166c26d30285db90400ece92a44",
+      "warnings": []
+    },
+    {
+      "id": "sb1-849a9bfc5c0ac58d",
+      "date": "2026-02-03",
+      "posted_at": null,
+      "description": "Pago proveedor",
+      "reference": null,
+      "debit": "250",
+      "credit": null,
+      "amount": "-250",
+      "balance": "1250",
+      "currency": null,
+      "original_row": 3,
+      "fingerprint": "30c8fee96b4827151a0882d13dcdfa15ba109199dd8ec2b741cdc0b2279f1828",
+      "warnings": []
+    },
+    {
+      "id": "sb1-d52072843226af97",
+      "date": "2026-02-04",
+      "posted_at": null,
+      "description": "Material de oficina",
+      "reference": null,
+      "debit": "99.5",
+      "credit": null,
+      "amount": "-99.5",
+      "balance": "1150.5",
+      "currency": null,
+      "original_row": 4,
+      "fingerprint": "1bec6252f2a573224f34473ec738eb9cf52d9df9cef9ce2f24cf3d122f9974da",
+      "warnings": []
+    },
+    {
+      "id": "sb1-dfbbee3a11e65d70",
+      "date": "2026-02-05",
+      "posted_at": null,
+      "description": "Cobro factura 1088",
+      "reference": null,
+      "debit": null,
+      "credit": "420.25",
+      "amount": "420.25",
+      "balance": "1570.75",
+      "currency": null,
+      "original_row": 5,
+      "fingerprint": "bc46718dc0cab8289e425eb68cba61a47e698310c56a3c420a6b3e3200074956",
+      "warnings": []
+    }
+  ],
+  "summary": {
+    "transaction_count": 4,
+    "total_debits": "349.50",
+    "total_credits": "1920.25",
+    "opening_balance": "0",
+    "closing_balance": "1570.75",
+    "exact_duplicates": 0,
+    "possible_duplicates": 0,
+    "duplicates_removed": 0
+  },
+  "validation": {
+    "status": "valid_with_warnings",
+    "errors": [],
+    "warnings": [
+      {
+        "code": "multiple_sheets",
+        "message": "workbook has 2 non-empty sheets; using 'Movimientos' (pass an explicit sheet to override)"
+      }
+    ],
+    "balance_check": {
+      "status": "consistent",
+      "checked_pairs": 3,
+      "mismatches": 0,
+      "first_mismatch_row": null,
+      "expected": null,
+      "actual": null
+    }
+  }
+}

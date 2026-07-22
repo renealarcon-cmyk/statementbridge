@@ -1,0 +1,5 @@
+Date,Description,Reference,Debit,Credit,Balance
+01/15/2026,Opening deposit,DEP-01,,2000.00,2000.00
+01/16/2026,Vendor payment — Blue Widgets,CHK-1101,350.25,,1649.75
+01/20/2026,Customer payment,ACH-2201,,1200.00,2849.75
+01/28/2026,Payroll run,PAY-3301,1800.00,,1049.75
