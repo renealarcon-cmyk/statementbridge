@@ -1,0 +1,66 @@
+# Deploy the StatementBridge web app to GitHub Pages.
+#
+# The app stays local-first: Pages only serves the static files; every
+# statement is processed inside the visitor's browser (WASM), no backend.
+#
+# One-time setup: repository Settings → Pages → Source: "GitHub Actions".
+# (configure-pages below attempts to enable it automatically; if that is not
+# permitted, flip the setting once by hand and re-run this workflow.)
+name: Deploy web app to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: apps/web/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+      - name: Build WASM package
+        run: bash scripts/build-wasm.sh
+      - name: Install web dependencies
+        run: pnpm --dir apps/web install --frozen-lockfile
+      - name: Build site (base /statementbridge/)
+        run: pnpm --dir apps/web exec vite build --base=/statementbridge/
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+        continue-on-error: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

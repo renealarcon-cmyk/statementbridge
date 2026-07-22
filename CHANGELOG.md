@@ -10,6 +10,13 @@ always documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Single-file offline demo build (`scripts/build-demo.sh`): the whole web app
+  — including the WASM engine, base64-embedded — in one HTML document that
+  runs from `file://` with `connect-src 'none'`.
+- GitHub Pages deployment workflow for the web app (`.github/workflows/pages.yml`).
+
 ## [0.1.0] - 2026-07-22
 
 First public alpha: local-first normalization of bank statement CSV/XLSX

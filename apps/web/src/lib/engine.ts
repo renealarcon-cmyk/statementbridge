@@ -44,9 +44,22 @@ function unwrap<T>(raw: string): T {
 let ready: Promise<void> | null = null;
 
 function ensureReady(): Promise<void> {
-  ready ??= initWasm().then(() => {
+  ready ??= (async () => {
+    if (import.meta.env.VITE_EMBED_WASM === '1') {
+      // Single-file demo build (scripts/build-demo.sh): the wasm binary is
+      // embedded as base64 so the whole app works from one HTML file opened
+      // via file:// — no server, no network. Dead-code-eliminated (together
+      // with the placeholder module) in normal builds.
+      const { WASM_B64 } = await import('./wasm-inline');
+      const binary = atob(WASM_B64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      await initWasm({ module_or_path: bytes });
+    } else {
+      await initWasm();
+    }
     installPanicHook();
-  });
+  })();
   return ready;
 }
 

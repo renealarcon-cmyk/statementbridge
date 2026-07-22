@@ -27,3 +27,5 @@ bench-out/
 # Never commit real statements. Fixtures must be synthetic.
 *.private.*
 private/
+apps/web/dist-demo/
+apps/web/src/lib/wasm-inline.ts.orig
