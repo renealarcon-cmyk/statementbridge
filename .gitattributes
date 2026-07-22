@@ -1,0 +1,8 @@
+# Normalize line endings: everything checks out with LF so golden tests,
+# content hashes and byte-exact encoding fixtures behave identically on
+# Windows, macOS and Linux CI runners.
+* text=auto eol=lf
+
+# Fixtures must stay byte-exact (encodings, hashes): no conversion at all.
+fixtures/** -text
+*.xlsx -text

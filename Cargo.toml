@@ -14,8 +14,8 @@ edition = "2021"
 rust-version = "1.79"
 license = "Apache-2.0"
 authors = ["StatementBridge contributors"]
-homepage = "https://github.com/statementbridge/statementbridge"
-repository = "https://github.com/statementbridge/statementbridge"
+homepage = "https://github.com/renealarcon-cmyk/statementbridge"
+repository = "https://github.com/renealarcon-cmyk/statementbridge"
 keywords = ["finance", "csv", "xlsx", "bank-statement", "normalization"]
 categories = ["parser-implementations", "command-line-utilities", "finance"]
 

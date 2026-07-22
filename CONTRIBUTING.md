@@ -41,7 +41,7 @@ You need:
 ## Quickstart
 
 ```sh
-git clone https://github.com/statementbridge/statementbridge
+git clone https://github.com/renealarcon-cmyk/statementbridge
 cd statementbridge
 
 # Build and test the Rust workspace

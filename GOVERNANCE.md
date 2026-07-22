@@ -7,7 +7,7 @@ community grows.
 ## Current model
 
 The project is maintained by a small group of maintainers: the people with
-commit access to `statementbridge/statementbridge`.
+commit access to `renealarcon-cmyk/statementbridge`.
 
 Decisions are made by **lazy consensus**:
 
