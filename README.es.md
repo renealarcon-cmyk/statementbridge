@@ -58,7 +58,7 @@ Desarrollado y probado en Linux. El código no tiene dependencias específicas d
 ### CLI (desde el código fuente)
 
 ```sh
-git clone https://github.com/statementbridge/statementbridge
+git clone https://github.com/renealarcon-cmyk/statementbridge
 cd statementbridge
 cargo install --path crates/statementbridge-cli
 # o, sin instalar:

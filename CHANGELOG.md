@@ -70,5 +70,5 @@ exports into a canonical, validated format.
   lint/tests/build; Dependabot updates; and a tag-triggered workflow that
   drafts (never auto-publishes) GitHub releases.
 
-[Unreleased]: https://github.com/statementbridge/statementbridge/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/statementbridge/statementbridge/releases/tag/v0.1.0
+[Unreleased]: https://github.com/renealarcon-cmyk/statementbridge/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/renealarcon-cmyk/statementbridge/releases/tag/v0.1.0

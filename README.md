@@ -58,7 +58,7 @@ Developed and tested on Linux. The code has no platform-specific dependencies, b
 ### CLI (from source)
 
 ```sh
-git clone https://github.com/statementbridge/statementbridge
+git clone https://github.com/renealarcon-cmyk/statementbridge
 cd statementbridge
 cargo install --path crates/statementbridge-cli
 # or, without installing:

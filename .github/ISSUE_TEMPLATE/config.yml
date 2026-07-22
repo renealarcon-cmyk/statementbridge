@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: Security vulnerability (private reporting)
-    url: https://github.com/statementbridge/statementbridge/blob/main/SECURITY.md
+    url: https://github.com/renealarcon-cmyk/statementbridge/blob/main/SECURITY.md
     about: >-
       Never report security issues in public issues. SECURITY.md explains how
       to report privately via the repository's Security tab ("Report a
