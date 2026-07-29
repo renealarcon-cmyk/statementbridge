@@ -48,7 +48,7 @@ jobs:
         run: pnpm --dir apps/web install --frozen-lockfile
       - name: Build site (base /statementbridge/)
         run: pnpm --dir apps/web exec vite build --base=/statementbridge/
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
         with:
           enablement: true
         continue-on-error: true
