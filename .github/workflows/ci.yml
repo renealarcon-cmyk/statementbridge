@@ -93,7 +93,7 @@ jobs:
           tool: wasm-pack
       # No explicit version: the action reads "packageManager" from
       # apps/web/package.json so CI and local pnpm always match.
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         if: hashFiles('apps/web/package.json') != ''
         with:
           package_json_file: apps/web/package.json
